@@ -22,7 +22,7 @@ xhr.onload = function() {
             <img class='product-photo' src='${p.photo_url}' alt='${p.name}'>
             <p class='product-price'><b>Price: </b>${p.price}$</p>
             <p class='product-description'><b>Description: </b>${p.description}</p>
-            <button onclick="addProductToCart(${p.id})">Buy</button>
+            <button onclick="addProductToCart('${p._id}')">Buy</button>
         `;
         productsGrid.append(pElem);
     });
@@ -42,7 +42,7 @@ if(localStorage.getItem('cart')) {
 
 function addProductToCart(id) {
     let product = productsArray.find(function(p) {
-        return p.id == id;
+        return p._id == id;
     })
     cart.push(product);
     drawCartProducts();
