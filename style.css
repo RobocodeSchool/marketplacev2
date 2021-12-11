@@ -181,6 +181,16 @@ button {
     border-radius: 1rem;
 }
 
+/* Admin */
+
+.form-group {
+    margin: 0.2rem 0;
+}
+
+.form-group label {
+    display: block;
+}
+
 /* -----Responsive----- */
 
 @media screen and (max-width: 1000px){
