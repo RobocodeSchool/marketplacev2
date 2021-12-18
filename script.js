@@ -71,12 +71,68 @@ function drawCartProducts() {
     `;
 }
 
+let orderBlock = document.getElementById('order-block');
+
+// Get the modal
+let modal = document.getElementById('myModal');
+
+
+// Get the <span> element that closes the modal
+let span = document.getElementsByClassName('close')[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = 'none';
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+
 function buyAll() {
-    cart = [];
-    cartProd.innerHTML = 'Money was withdrawn from your credit card';
-    localStorage.setItem("cart", '[]');
+    modal.style.display = "block";
+    let sum = 0;
+    orderBlock.innerHTML = null;
+
+    cart.forEach(function(p){
+        orderBlock.innerHTML += `
+            <div class="item">
+                <img width="100px" src="${p.photo_url}"> 
+                <h2>${p.name} | ${p.price}$</h2>
+            </div>
+        `;
+        sum += +p.price;
+    });
+    document.getElementById('price').innerHTML = sum + '$';
 }
 
 function openCart() {
     cartProd.classList.toggle('hide');
 }
+
+document.getElementById('order-form').addEventListener('submit', function(e) {
+    e.preventDefault();//
+    let data = JSON.stringify({
+        "name": e.target['name'].value,
+        "address": e.target['address'].value,
+        "phone": e.target['phone'].value,
+        "post_number": e.target['post_number'].value,
+        "status": "New",
+        "products": localStorage.getItem('cart')
+      });
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", url + "/orders");
+      xhr.setRequestHeader("content-type", "application/json");
+      xhr.setRequestHeader("x-apikey", "61b3ca4f72a03f5dae8222ad");
+      xhr.setRequestHeader("cache-control", "no-cache");
+      xhr.send(data);
+
+      modal.style.display = "none";
+      cart = [];
+      cartProd.innerHTML = 'Money was withdrawn from your credit card';
+      localStorage.setItem("cart", '[]');
+})
