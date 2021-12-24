@@ -51,6 +51,25 @@ button {
     min-width: 50%;
 }
 
+nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.admin_page_link {
+    color: #ffffff;
+    background-color: #000000;
+    padding: 0.75rem 0.5rem;
+    border: 1px solid #ffffff;
+}
+
+.admin_page_link:hover {
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+}
+
 /* -----Cart----- */
 
 #cart-button {
@@ -270,10 +289,14 @@ button {
       grid-template-columns: 1fr 1fr;
   }
 
-  #admin_page_orders *{
+  #admin_page_orders .product *{
       font-weight: 500;
       padding: 0.2rem 0; 
   }
+
+  #admin_page_orders .product {
+    margin-bottom: 1rem;
+}
 
 /* -----Responsive----- */
 
